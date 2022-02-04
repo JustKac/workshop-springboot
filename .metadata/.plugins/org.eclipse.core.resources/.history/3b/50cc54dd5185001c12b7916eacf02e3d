@@ -1,0 +1,5 @@
+package com.educandoweb.workshop.resources;
+
+public class UserResource {
+
+}
