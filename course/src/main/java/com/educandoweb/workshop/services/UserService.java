@@ -1,6 +1,7 @@
 package com.educandoweb.workshop.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,13 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
-		User entity = repository.findById(id).get();
-		updateData(entity, obj);
-		return entity;
+		try {
+			User entity = repository.findById(id).get();
+			updateData(entity, obj);
+			return entity;
+		} catch (NoSuchElementException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(User entity, User obj) {	
